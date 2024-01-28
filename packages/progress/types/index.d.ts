@@ -1,2 +1,2 @@
-export * from './Progress';
+export * from "./Progress";
 //# sourceMappingURL=index.d.ts.map

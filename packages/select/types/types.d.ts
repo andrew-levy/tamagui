@@ -1,9 +1,9 @@
-import type { ContextData, FloatingContext, ReferenceType } from '@floating-ui/react';
-import type { NativeValue, SizeTokens } from '@tamagui/core';
-import type { Scope } from '@tamagui/create-context';
-import type { ThemeableStackProps, YStackProps } from '@tamagui/stacks';
-import type { DispatchWithoutAction, HTMLProps, MutableRefObject, ReactNode } from 'react';
-export type Direction = 'ltr' | 'rtl';
+import type { ContextData, FloatingContext, ReferenceType } from "@floating-ui/react";
+import type { NativeValue, SizeTokens } from "@tamagui/core";
+import type { Scope } from "@tamagui/create-context";
+import type { ThemeableStackProps, YStackProps } from "@tamagui/stacks";
+import type { DispatchWithoutAction, HTMLProps, MutableRefObject, ReactNode } from "react";
+export type Direction = "ltr" | "rtl";
 export type ScopedProps<P> = P & {
     __scopeSelect?: Scope;
 };
@@ -28,7 +28,7 @@ export interface SelectProps {
     /**
      * If passed, will render a native component instead of the custom one. Currently only `web` is supported.
      */
-    native?: NativeValue<'web'>;
+    native?: NativeValue<"web" | "ios">;
     /**
      * When true, avoids removing the scrollbar from the body when open
      */
@@ -102,10 +102,10 @@ export type SelectContentProps = ScopedProps<{
     zIndex?: number;
 }>;
 export interface SelectScrollButtonImplProps extends YStackProps {
-    dir: 'up' | 'down';
+    dir: "up" | "down";
     componentName: string;
 }
-export interface SelectScrollButtonProps extends Omit<SelectScrollButtonImplProps, 'dir' | 'componentName'> {
+export interface SelectScrollButtonProps extends Omit<SelectScrollButtonImplProps, "dir" | "componentName"> {
 }
 export {};
 //# sourceMappingURL=types.d.ts.map

@@ -1,5 +1,6 @@
-import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons'
-import { useMemo, useState } from 'react'
+import { Check, ChevronDown, ChevronUp } from "@tamagui/lucide-icons";
+import { useMemo, useState } from "react";
+import { Platform } from "react-native";
 import {
   Adapt,
   FontSizeTokens,
@@ -7,39 +8,74 @@ import {
   Select,
   SelectProps,
   Sheet,
-  XStack,
   YStack,
   getFontSize,
-} from 'tamagui'
-import { LinearGradient } from 'tamagui/linear-gradient'
+} from "tamagui";
+import { LinearGradient } from "tamagui/linear-gradient";
 
 export function SelectDemo() {
   return (
     <YStack space>
-      <XStack ai="center" space>
-        <Label f={1} fb={0}>
-          Custom
-        </Label>
+      <YStack ai="center" gap="$5">
+        <Label>Custom</Label>
         <SelectDemoItem />
-      </XStack>
-
-      <XStack ai="center" space>
-        <Label f={1} fb={0}>
-          Native
-        </Label>
-        <SelectDemoItem native />
-      </XStack>
+      </YStack>
+      {Platform.OS === "web" && (
+        <YStack ai="center" gap="$5">
+          <Label>Native Web</Label>
+          <SelectDemoItem native="web" onValueChange={console.log} />
+        </YStack>
+      )}
+      {Platform.OS === "ios" && (
+        <>
+          <YStack ai="center">
+            <Label>Native (Menu)</Label>
+            <SelectDemoItem
+              height={100}
+              native="ios"
+              onValueChange={console.log}
+            />
+          </YStack>
+          <YStack ai="center">
+            <Label>Native (Wheel)</Label>
+            <SelectDemoItem
+              native="ios"
+              nativeType="wheel"
+              height={100}
+              width={300}
+              onValueChange={console.log}
+            />
+          </YStack>
+          <YStack ai="center">
+            <Label>Native (Segmented)</Label>
+            <SelectDemoItem
+              native="ios"
+              nativeType="segmented"
+              height={100}
+              width={300}
+              onValueChange={console.log}
+            />
+          </YStack>
+        </>
+      )}
     </YStack>
-  )
+  );
 }
 
-export function SelectDemoItem(props: SelectProps) {
-  const [val, setVal] = useState('apple')
+export function SelectDemoItem(
+  props: SelectProps & {
+    nativeType?: "wheel" | "menu" | "segmented";
+    height?: number;
+    width?: number;
+  }
+) {
+  const [val, setVal] = useState("apple");
 
   return (
     <Select
       id="food"
       value={val}
+      native={props.native}
       onValueChange={setVal}
       disablePreventBodyScroll
       {...props}
@@ -54,7 +90,7 @@ export function SelectDemoItem(props: SelectProps) {
           modal
           dismissOnSnapToBottom
           animationConfig={{
-            type: 'spring',
+            type: "spring",
             damping: 20,
             mass: 1.2,
             stiffness: 250,
@@ -88,7 +124,7 @@ export function SelectDemoItem(props: SelectProps) {
             start={[0, 0]}
             end={[0, 1]}
             fullscreen
-            colors={['$background', 'transparent']}
+            colors={["$background", "transparent"]}
             borderRadius="$4"
           />
         </Select.ScrollUpButton>
@@ -106,7 +142,10 @@ export function SelectDemoItem(props: SelectProps) {
             {/* for longer lists memoizing these is useful */}
             {useMemo(
               () =>
-                items.map((item, i) => {
+                (props.nativeType === "segmented"
+                  ? items.slice(0, 3)
+                  : items
+                ).map((item, i) => {
                   return (
                     <Select.Item
                       index={i}
@@ -118,7 +157,7 @@ export function SelectDemoItem(props: SelectProps) {
                         <Check size={16} />
                       </Select.ItemIndicator>
                     </Select.Item>
-                  )
+                  );
                 }),
               [items]
             )}
@@ -132,11 +171,11 @@ export function SelectDemoItem(props: SelectProps) {
               bottom={0}
               alignItems="center"
               justifyContent="center"
-              width={'$4'}
+              width={"$4"}
               pointerEvents="none"
             >
               <ChevronDown
-                size={getFontSize((props.size as FontSizeTokens) ?? '$true')}
+                size={getFontSize((props.size as FontSizeTokens) ?? "$true")}
               />
             </YStack>
           )}
@@ -156,36 +195,36 @@ export function SelectDemoItem(props: SelectProps) {
             start={[0, 0]}
             end={[0, 1]}
             fullscreen
-            colors={['transparent', '$background']}
+            colors={["transparent", "$background"]}
             borderRadius="$4"
           />
         </Select.ScrollDownButton>
       </Select.Content>
     </Select>
-  )
+  );
 }
 
 const items = [
-  { name: 'Apple' },
-  { name: 'Pear' },
-  { name: 'Blackberry' },
-  { name: 'Peach' },
-  { name: 'Apricot' },
-  { name: 'Melon' },
-  { name: 'Honeydew' },
-  { name: 'Starfruit' },
-  { name: 'Blueberry' },
-  { name: 'Raspberry' },
-  { name: 'Strawberry' },
-  { name: 'Mango' },
-  { name: 'Pineapple' },
-  { name: 'Lime' },
-  { name: 'Lemon' },
-  { name: 'Coconut' },
-  { name: 'Guava' },
-  { name: 'Papaya' },
-  { name: 'Orange' },
-  { name: 'Grape' },
-  { name: 'Jackfruit' },
-  { name: 'Durian' },
-]
+  { name: "Apple" },
+  { name: "Pear" },
+  { name: "Blackberry" },
+  { name: "Peach" },
+  { name: "Apricot" },
+  { name: "Melon" },
+  { name: "Honeydew" },
+  { name: "Starfruit" },
+  { name: "Blueberry" },
+  { name: "Raspberry" },
+  { name: "Strawberry" },
+  { name: "Mango" },
+  { name: "Pineapple" },
+  { name: "Lime" },
+  { name: "Lemon" },
+  { name: "Coconut" },
+  { name: "Guava" },
+  { name: "Papaya" },
+  { name: "Orange" },
+  { name: "Grape" },
+  { name: "Jackfruit" },
+  { name: "Durian" },
+];

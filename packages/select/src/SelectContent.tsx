@@ -1,17 +1,17 @@
-import { FloatingOverlay, FloatingPortal } from '@floating-ui/react'
-import { Theme, useIsTouchDevice, useThemeName } from '@tamagui/core'
-import { FocusScope, FocusScopeProps } from '@tamagui/focus-scope'
-import { useMemo } from 'react'
+import { FloatingOverlay, FloatingPortal } from "@floating-ui/react";
+import { Theme, useIsTouchDevice, useThemeName } from "@tamagui/core";
+import { FocusScope, FocusScopeProps } from "@tamagui/focus-scope";
+import { useMemo } from "react";
 
-import { useSelectContext, useSelectItemParentContext } from './context'
-import { SelectContentProps } from './types'
-import { useShowSelectSheet } from './useSelectBreakpointActive'
+import { useSelectContext, useSelectItemParentContext } from "./context";
+import { SelectContentProps } from "./types";
+import { useShowSelectSheet } from "./useSelectBreakpointActive";
 
 /* -------------------------------------------------------------------------------------------------
  * SelectContent
  * -----------------------------------------------------------------------------------------------*/
 
-const CONTENT_NAME = 'SelectContent'
+const CONTENT_NAME = "SelectContent";
 
 export const SelectContent = ({
   children,
@@ -19,44 +19,49 @@ export const SelectContent = ({
   zIndex = 1000,
   ...focusScopeProps
 }: SelectContentProps & FocusScopeProps) => {
-  const context = useSelectContext(CONTENT_NAME, __scopeSelect)
-  const itemParentContext = useSelectItemParentContext(CONTENT_NAME, __scopeSelect)
-  const themeName = useThemeName()
-  const showSheet = useShowSelectSheet(context)
+  const context = useSelectContext(CONTENT_NAME, __scopeSelect);
+  const itemParentContext = useSelectItemParentContext(
+    CONTENT_NAME,
+    __scopeSelect
+  );
+  const themeName = useThemeName();
+  const showSheet = useShowSelectSheet(context);
 
   const contents = (
     <Theme forceClassName name={themeName}>
       {children}
     </Theme>
-  )
+  );
 
-  const touch = useIsTouchDevice()
+  const touch = useIsTouchDevice();
 
   const overlayStyle = useMemo(() => {
-    return { zIndex, pointerEvents: context.open ? 'auto' : 'none' } as const
-  }, [context.open])
+    return { zIndex, pointerEvents: context.open ? "auto" : "none" } as const;
+  }, [context.open]);
 
   if (itemParentContext.shouldRenderWebNative) {
-    return <>{children}</>
+    return <>{children}</>;
   }
 
   if (showSheet) {
     if (!context.open) {
-      return null
+      return null;
     }
-    return <>{contents}</>
+    return <>{contents}</>;
   }
 
   return (
     <FloatingPortal>
       <FloatingOverlay
         style={overlayStyle}
-        lockScroll={!context.disablePreventBodyScroll && !!context.open && !touch}
+        lockScroll={
+          !context.disablePreventBodyScroll && !!context.open && !touch
+        }
       >
         <FocusScope loop enabled={!!context.open} trapped {...focusScopeProps}>
           {contents}
         </FocusScope>
       </FloatingOverlay>
     </FloatingPortal>
-  )
-}
+  );
+};
