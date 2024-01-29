@@ -1,7 +1,7 @@
-import { FontSizeTokens, TamaguiElement } from "@tamagui/core";
-import { ListItemProps } from "@tamagui/list-item";
-import * as React from "react";
-import { ScopedProps, SelectProps } from "./types";
+import { FontSizeTokens, TamaguiElement } from '@tamagui/core';
+import { ListItemProps } from '@tamagui/list-item';
+import * as React from 'react';
+import { ScopedProps, SelectProps } from './types';
 export declare const SelectIcon: import("@tamagui/core").TamaguiComponent<import("@tamagui/core").TamaDefer, TamaguiElement, import("@tamagui/core").RNTamaguiViewNonStyleProps, import("@tamagui/core").StackStyleBase, {
     elevation?: number | import("@tamagui/core").SizeTokens | undefined;
     fullscreen?: boolean | undefined;

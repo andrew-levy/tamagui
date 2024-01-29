@@ -1,5 +1,5 @@
-import { GetProps } from "@tamagui/core";
-import * as React from "react";
+import { GetProps } from '@tamagui/core';
+import * as React from 'react';
 declare const createProgressScope: import("@tamagui/create-context").CreateScope;
 export declare const ProgressIndicatorFrame: import("@tamagui/core").TamaguiComponent<import("@tamagui/core").TamaDefer, import("@tamagui/core").TamaguiElement, import("@tamagui/core").RNTamaguiViewNonStyleProps, import("@tamagui/core").StackStyleBase, {
     elevation?: number | import("@tamagui/core").SizeTokens | undefined;
@@ -69,7 +69,7 @@ export declare const ProgressFrame: import("@tamagui/core").TamaguiComponent<imp
 type ProgressProps = GetProps<typeof ProgressFrame> & {
     value?: number | null | undefined;
     max?: number;
-    native?: "ios";
+    native?: 'ios';
     getValueLabel?(value: number, max: number): string;
 };
 declare const Progress: React.ForwardRefExoticComponent<Omit<import("@tamagui/core").GetFinalProps<import("@tamagui/core").RNTamaguiViewNonStyleProps, import("@tamagui/core").StackStyleBase & {
